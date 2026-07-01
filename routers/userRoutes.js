@@ -1,0 +1,38 @@
+const express = require('express');
+const userController = require('../controllers/userController');
+const authController = require('../controllers/authController');
+
+const router = express.Router();
+
+router.post('/signup', authController.signup);
+router.post('/login', authController.login);
+router.get('/logout', authController.logout);
+router.post('/forgotPassword', authController.forgotPassword);
+router.patch('/resetpassword/:token', authController.resetPassword);
+
+// protect all routes after that midelware
+router.use(authController.protect);
+
+router.patch('/updateMyPassword', authController.updatePassword);
+router.get('/me', userController.getMe, userController.getUser);
+router.patch(
+  '/updateMe',
+  userController.uploadUserPhoto,
+  userController.resizeUserPhoto,
+  userController.updateMe,
+);
+router.delete('/deleteMe', userController.deleteMe);
+
+// only admin can perform that actions
+router.use(authController.restrictTo('admin'));
+router
+  .route('/')
+  .get(userController.getAllusers)
+  .post(userController.createUser);
+router
+  .route('/:id')
+  .get(userController.getUser)
+  .patch(userController.updateUser)
+  .delete(userController.delteUser);
+
+module.exports = router;
