@@ -11,6 +11,7 @@ const cookieParser = require('cookie-parser');
 const AppError = require('./utils/appError');
 const globalErrorHandller = require('./controllers/errorController');
 
+// start express app
 const app = express();
 exports.app = app;
 
