@@ -33,7 +33,7 @@ mongoose
 // .catch((err) => console.log('cant connect with database server'));
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`app runing on port ${port}`);
 });
 
@@ -41,4 +41,11 @@ process.on('unhandledRejection', (err) => {
   console.log(err.name, err.message);
   console.log('unhandledRejection shutting down');
   process.exit(1);
+});
+
+process.on('SIGTERM', () => {
+  console.log(' sigtrem recived, shutting down....');
+  server.close(() => {
+    console.log('procces terminated');
+  });
 });
