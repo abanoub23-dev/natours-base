@@ -8,6 +8,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const cors = require('cors');
 
 const AppError = require('./utils/appError');
 const globalErrorHandller = require('./controllers/errorController');
@@ -20,6 +21,17 @@ app.enable('trust proxy');
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
+
+app.use(cors());
+// access control allow origin
+// app.use(
+//   cors({
+//     origin: 'https://natours-base-production.up.railway.app/',
+//   }),
+// );
+
+app.options('*', cors());
+// app.options('/api/v1/tours/:id', cors());
 
 const tourRouter = require('./routers/tourRoutes');
 const userRouter = require('./routers/userRoutes');
