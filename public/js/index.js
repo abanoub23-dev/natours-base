@@ -76,4 +76,4 @@ if (bookBtn) {
 }
 
 const alertMessage = document.querySelector('body').dataset.alert;
-if (alert) showALert('success', alertMessage, 20);
+if (alertMessage) showALert('success', alertMessage, 20);
