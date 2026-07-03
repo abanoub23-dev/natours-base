@@ -5,7 +5,7 @@ export const hideAlert = () => {
   if (el) el.parentElement.removeChild(el);
 };
 
-export const showALert = (type, msg) => {
+export const showALert = (type, msg, time = 7) => {
   // بنشيل أي Alert قديم الأول
   //   hideAlert();
 
@@ -14,5 +14,5 @@ export const showALert = (type, msg) => {
   // التعديل هنا: استخدمنا insertAdjacentHTML
   document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
 
-  window.setTimeout(hideAlert, 5000);
+  window.setTimeout(hideAlert, time * 1000);
 };
